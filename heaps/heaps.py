@@ -15,19 +15,19 @@ class MinHeap:
 	# Function to return the position of
 	# parent for the node currently
 	# at pos
-	def parent(self, pos):
+	def parent_idx(self, pos):
 		return pos//2
 
 	# Function to return the position of
 	# the left child for the node currently
 	# at pos
-	def leftChild(self, pos):
+	def leftChild_idx(self, pos):
 		return 2 * pos
 
 	# Function to return the position of
 	# the right child for the node currently
 	# at pos
-	def rightChild(self, pos):
+	def rightChild_idx(self, pos):
 		return (2 * pos) + 1
 
 	# Function that returns true if the passed
@@ -45,33 +45,31 @@ class MinHeap:
 		# If the node is a non-leaf node and greater
 		# than any of its child
 		if not self.isLeaf(pos):
-			if (self.Heap[pos] > self.Heap[self.leftChild(pos)] or
-			self.Heap[pos] > self.Heap[self.rightChild(pos)]):
+			if (self.Heap[pos] > self.Heap[self.leftChild_idx(pos)] or
+			self.Heap[pos] > self.Heap[self.rightChild_idx(pos)]):
 
 				# Swap with the left child and heapify
 				# the left child
-				if self.Heap[self.leftChild(pos)] < self.Heap[self.rightChild(pos)]:
-					self.swap(pos, self.leftChild(pos))
-					self.minHeapify(self.leftChild(pos))
+				if self.Heap[self.leftChild_idx(pos)] < self.Heap[self.rightChild_idx(pos)]:
+					self.swap(pos, self.leftChild_idx(pos))
+					self.minHeapify(self.leftChild_idx(pos))
 
 				# Swap with the right child and heapify
 				# the right child
 				else:
-					self.swap(pos, self.rightChild(pos))
-					self.minHeapify(self.rightChild(pos))
+					self.swap(pos, self.rightChild_idx(pos))
+					self.minHeapify(self.rightChild_idx(pos))
 
 	# Function to insert a node into the heap
-	def insert(self, element):
+	def insert(self, element:int):
 		if self.size >= self.maxsize :
 			return
 		self.size+= 1
 		self.Heap[self.size] = element
-
-		current = self.size
-
-		while self.Heap[current] < self.Heap[self.parent(current)]:
-			self.swap(current, self.parent(current))
-			current = self.parent(current)
+		current_idx:int = self.size
+		while self.Heap[current_idx] < self.Heap[self.parent_idx(current_idx)]:
+			self.swap(current_idx, self.parent_idx(current_idx))
+			current_idx = self.parent_idx(current_idx)
 
 	# Function to print the contents of the heap
 	def Print(self):
@@ -92,7 +90,7 @@ class MinHeap:
 	def remove(self):
 
 		popped = self.Heap[self.FRONT]
-		self.Heap[self.FRONT] = self.Heap[self.size]
+		self.Heap[self.FRONT] = self.Heap[self.size] # ASSIGN LAST ELEMENT TO BE THE FIRST ELEMENT
 		self.size-= 1
 		self.minHeapify(self.FRONT)
 		return popped
