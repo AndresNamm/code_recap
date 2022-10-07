@@ -88,7 +88,6 @@ class MinHeap:
 	# Function to remove and return the minimum
 	# element from the heap
 	def remove(self):
-
 		popped = self.Heap[self.FRONT]
 		self.Heap[self.FRONT] = self.Heap[self.size] # ASSIGN LAST ELEMENT TO BE THE FIRST ELEMENT
 		self.size-= 1
@@ -108,9 +107,6 @@ minHeap.minHeap()
 
 minHeap.Print()
 print("The Min val is " + str(minHeap.remove()))
-
-# %%
-
 
 
 # %%
